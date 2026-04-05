@@ -198,6 +198,47 @@ class ContaTest {
     //    - Transferência com conta destino inativa lança exceção
     // =======================================================
 
+    @Test
+    void transferir_SaldoEmConta_Valido() {
+        Conta contaOrigem = new Conta("Eemoh", 50);
+        Conta contaDestino = new Conta("Jay Sax", 50);
+
+        assertDoesNotThrow(() -> contaOrigem.transferir(contaDestino, 50));
+    }
+
+    @Test
+    void transferir_SaldoInsuficiente_LancaIllegalStateException() {
+        Conta contaOrigem = new Conta("Young Stunna", 50);
+        Conta contaDestino = new Conta("Daliwonga", 50);
+
+        assertThrows(IllegalStateException.class, () -> contaOrigem.transferir(contaDestino, 60));
+    }
+
+    @Test
+    void transferir_SaldoZeradoOuNegativo_LancaIllegalArgumentException() {
+        Conta contaOrigem = new Conta("MFR Souls", 50);
+        Conta contaDestino = new Conta("Shasha", 50);
+
+        assertThrows(IllegalArgumentException.class, () -> contaOrigem.transferir(contaDestino, 0));
+        assertThrows(IllegalArgumentException.class, () -> contaOrigem.transferir(contaDestino, -10));
+    }
+
+    @Test
+    void transferir_OrigemInativa_LancaIllegalStateException() {
+        Conta contaOrigem = new Conta("DJ Maphorisa", 0);
+        Conta contaDestino = new Conta("Madumane", 50);
+        contaOrigem.encerrar();
+
+        assertThrows(IllegalStateException.class, () -> contaOrigem.transferir(contaDestino, 50));
+    }
+
+    @Test
+    void transferir_DestinoInativa_LancaIllegalStateException() {
+        Conta contaOrigem = new Conta("Tyler ICU", 10);
+        Conta contaDestino = new Conta("Prince Kaybee", 0);
+        contaDestino.encerrar();
+        assertThrows(IllegalStateException.class, () -> contaOrigem.transferir(contaDestino, 50));
+    }
 
     // =======================================================
     //  Testes para encerrar
