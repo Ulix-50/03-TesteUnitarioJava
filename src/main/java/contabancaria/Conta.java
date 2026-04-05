@@ -71,10 +71,17 @@ public class Conta {
      *   - O saldo deve ser atualizado corretamente.
      */
     public void sacar(double valor) {
-        // TODO: Implemente usando TDD
-        throw new UnsupportedOperationException();
-    }
+        if(valor < 0 || valor == 0)
+            throw new IllegalArgumentException();
 
+        if(!ativa)
+            throw new IllegalStateException();
+
+        if(saldo < valor)
+            throw new IllegalStateException();
+
+        saldo -= valor;
+    }
     /**
      * Transfere valor desta conta para outra.
      * Regras:
