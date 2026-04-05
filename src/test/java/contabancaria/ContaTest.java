@@ -99,7 +99,7 @@ class ContaTest {
     //    - Depósito em conta inativa lança IllegalStateException
     // =======================================================
 
-        @ParameterizedTest
+    @ParameterizedTest
     @CsvSource({
             "100",
             "50",
@@ -114,8 +114,8 @@ class ContaTest {
 
     @ParameterizedTest
     @CsvSource({
-            "-0.01",
-            "-10.",
+            "-0.001",
+            "-10.0",
             "-100.0"
     })
     void depositar_DepositoNegativo_LancaIllegalArgumentException(double saldoDeposito) {
@@ -147,6 +147,7 @@ class ContaTest {
     //    - Saque com valor negativo lança IllegalArgumentException
     //    - Saque em conta inativa lança IllegalStateException
     // =======================================================
+
 
 
 
