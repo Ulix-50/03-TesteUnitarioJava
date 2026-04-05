@@ -91,8 +91,19 @@ public class Conta {
      *   - O saldo de ambas as contas deve ser atualizado corretamente.
      */
     public void transferir(Conta destino, double valor) {
-        // TODO: Implemente usando TDD
-        throw new UnsupportedOperationException();
+        
+        if(valor <= 0)
+            throw new IllegalArgumentException();
+
+        if(!ativa || !destino.ativa)
+            throw new IllegalStateException();
+
+        if(saldo < valor)
+            throw new IllegalStateException();
+
+        this.saldo -= valor;
+        destino.saldo += valor;
+
     }
 
     /**
