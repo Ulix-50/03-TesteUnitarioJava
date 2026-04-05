@@ -95,10 +95,7 @@ public class Conta {
         if(valor <= 0)
             throw new IllegalArgumentException();
 
-        if(!ativa || !destino.ativa)
-            throw new IllegalStateException();
-
-        if(saldo < valor)
+        if(!ativa || !destino.ativa || saldo < valor)
             throw new IllegalStateException();
 
         this.saldo -= valor;
