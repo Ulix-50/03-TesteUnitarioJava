@@ -53,8 +53,13 @@ public class Conta {
      *   - O saldo deve ser atualizado corretamente.
      */
     public void depositar(double valor) {
-        // TODO: Implemente usando TDD
-        throw new UnsupportedOperationException();
+        if(valor < 0 || valor == 0)
+            throw new IllegalArgumentException();
+            
+        if(!ativa)
+            throw new IllegalStateException();
+
+        saldo += valor;
     }
 
     /**
