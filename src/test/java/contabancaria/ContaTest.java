@@ -148,6 +148,42 @@ class ContaTest {
     //    - Saque em conta inativa lança IllegalStateException
     // =======================================================
 
+    @Test
+    void sacar_SaqueValido_AtualizaSaldo() {
+        Conta conta = new Conta("Boohle", 100);
+        assertDoesNotThrow(() -> conta.sacar(50));
+        assertEquals(50, conta.getSaldo());
+    }
+
+    @Test
+    void sacar_SaqueMaiorQueSaldo_LancaIllegalStateException() {
+        Conta conta = new Conta("Maremo Violin", 50);
+        assertThrows(IllegalStateException.class, () -> conta.sacar(60));
+    }
+
+    @Test
+    void sacar_SaqueZero_LancaIllegalArgumentException() {
+        Conta conta = new Conta("Stixx", 50);
+        assertThrows(IllegalArgumentException.class, () -> conta.sacar(0));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "-0.01",
+            "-10",
+            "-100"
+    })
+    void sacar_SaqueNegativo_LancaIllegalArgumentException(double valor) {
+        Conta conta = new Conta("Mzizi", 50);
+        assertThrows(IllegalArgumentException.class, () -> conta.sacar(valor));
+    }
+
+    @Test
+    void sacar_SaqueContaInativa_LancaIllegalStateException() {
+        Conta conta = new Conta("MFR Souls", 0);
+        conta.encerrar();
+        assertThrows(IllegalStateException.class, () -> conta.sacar(10));
+    }
 
 
 
