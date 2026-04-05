@@ -212,9 +212,8 @@ class ContaTest {
         Conta conta = new Conta("Mas Musiq", 50);
 
         assertThrows(IllegalStateException.class, () -> conta.encerrar());
-
     }
-
+ 
     @Test
     void encerrar_ContaInativada_LancaIllegalStateException() {
         Conta conta = new Conta("Odeal", 50);
